@@ -19,13 +19,6 @@ The model produces encoded outu</Description>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\Readme.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="TfCheckpoint" Version="1.0.0" />
     <PackageReference Include="TorchSharp" Version="0.95.3" />
   </ItemGroup>

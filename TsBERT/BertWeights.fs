@@ -21,7 +21,7 @@ module Tensor =
         let s = t.data<'t>()
         s.CopyFrom(data,0,0L)
 
-module BertWeight = 
+module BertWeights = 
     type PostProc = V | H | T | N
 
     let postProc (ts:torch.Tensor list) = function
