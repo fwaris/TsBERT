@@ -6,11 +6,12 @@
     <PlatformTarget>x64</PlatformTarget>
     <Authors>Faisal Waris</Authors>
     <Description>BERT model in TorchSharp with the ability to load pre-trained weights from Google BERT checkpoints.
-The model produces encoded outu</Description>
+This model produces a single value per input sequence - suitable for tasks such as text classification.</Description>
     <Copyright>Copyright © 2021</Copyright>
     <PackageProjectUrl>https://github.com/fwaris/TsBERT</PackageProjectUrl>
     <RepositoryUrl>https://github.com/fwaris/TsBERT</RepositoryUrl>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
