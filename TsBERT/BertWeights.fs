@@ -74,12 +74,12 @@ module BertWeights =
     //create a PyTorch tensor from TF checkpoint tensor data
     let toFloat32Tensor (shpdTnsr:CheckpointReader.ShapedTensor) = 
         match shpdTnsr.Tensor with
-        | CheckpointReader.TensorData.TdFloat ds -> torch.tensor(ds, dimensions=shpdTnsr.Shape)
+        | CheckpointReader.TensorData.TdFloat ds -> torch.tensor(ds, dimensions=ReadOnlySpan shpdTnsr.Shape)
         | _                                      -> failwith "TdFloat expected"
     
     //set the value of a single parameter
     let performMap (tfMap:Map<string,_>) (ptMap:Map<string,Modules.Parameter>) (torchName,tfNames,postProcType) = 
-        let torchParm = ptMap.[torchName]
+        let torchParm = match ptMap.TryGetValue torchName with true,n -> n | _ -> failwith $"name not found {torchName}"
         let fromTfWts = tfNames |> List.map (fun n -> tfMap.[n] |> toFloat32Tensor) 
         let parmTensor = postProc fromTfWts postProcType
         if torchParm.shape <> parmTensor.shape then failwithf $"Mismatched weights for parameter {torchName}; parm shape: %A{torchParm.shape} vs tensor shape: %A{parmTensor.shape}"

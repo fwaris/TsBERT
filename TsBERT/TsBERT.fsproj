@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PlatformTarget>x64</PlatformTarget>
+	<Version>1.1.0</Version>
     <Authors>Faisal Waris</Authors>
     <Description>BERT model in TorchSharp with the ability to load pre-trained weights from Google BERT checkpoints.
 This model produces a single value per input sequence - suitable for tasks such as text classification.</Description>
@@ -15,6 +16,8 @@ This model produces a single value per input sequence - suitable for tasks such 
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="scripts\packages.fsx" />
+    <None Include="scripts\BertFineTuneExample.fsx" />
     <Compile Include="BertWeights.fs" />
     <Compile Include="BertModel.fs" />
   </ItemGroup>
@@ -28,11 +31,11 @@ This model produces a single value per input sequence - suitable for tasks such 
 
   <ItemGroup>
     <PackageReference Include="TfCheckpoint" Version="1.0.0" />
-    <PackageReference Include="TorchSharp" Version="0.95.3" />
+    <PackageReference Include="TorchSharp" Version="0.98.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="6.0.1" />
+    <PackageReference Update="FSharp.Core" Version="6.0.6" />
   </ItemGroup>
 
 </Project>

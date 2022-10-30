@@ -32,7 +32,7 @@ type BertConfig =
         }
 
 type BertEmbedding(cfg) as this = 
-    inherit torch.nn.Module("embeddings")
+    inherit torch.nn.Module<torch.Tensor,torch.Tensor,torch.Tensor,torch.Tensor>("embeddings")
     
     let word_embeddings         = torch.nn.Embedding(cfg.VocabularySize,cfg.Hidden,padding_idx=0L)
     let position_embeddings     = torch.nn.Embedding(cfg.MaxPosEmbeddings,cfg.Hidden)
@@ -40,10 +40,10 @@ type BertEmbedding(cfg) as this =
     let LayerNorm               = torch.nn.LayerNorm([|cfg.Hidden|],cfg.EpsLayerNorm)
     let dropout                 = torch.nn.Dropout(cfg.HiddenDropoutProb)
 
-    do 
+    do
         this.RegisterComponents()
 
-    member this.forward(input_ids:torch.Tensor, token_type_ids:torch.Tensor, position_ids:torch.Tensor) =   
+    override _.forward(input_ids:torch.Tensor, token_type_ids:torch.Tensor, position_ids:torch.Tensor) =   
     
         let embeddings =      
             (input_ids       --> word_embeddings)        +
@@ -54,7 +54,7 @@ type BertEmbedding(cfg) as this =
 
 
 type BertPooler(cfg) as this = 
-    inherit torch.nn.Module("pooler")
+    inherit torch.nn.Module<torch.Tensor,torch.Tensor>("pooler")
 
     let dense = torch.nn.Linear(cfg.Hidden,cfg.Hidden)
     let activation = torch.nn.Tanh()
@@ -62,7 +62,7 @@ type BertPooler(cfg) as this =
     let ``:`` = torch.TensorIndex.Colon
     let first = torch.TensorIndex.Single(0L)
 
-    do
+    do 
         this.RegisterComponents()
 
     override _.forward (hidden_states) =
@@ -83,9 +83,9 @@ type BertModel(cfg) as this =
 
     let encoder = torch.nn.TransformerEncoder(encoderLayer, cfg.EncoderLayers)
 
-    do
+    do 
         this.RegisterComponents()
-    
+
     member this.forward(input_ids:torch.Tensor, token_type_ids:torch.Tensor, position_ids:torch.Tensor,?mask:torch.Tensor) =
         let src = embeddings.forward(input_ids, token_type_ids, position_ids)
         let srcBatchDim2nd = src.permute(1L,0L,2L) //PyTorch transformer requires input as such. See the Transformer docs

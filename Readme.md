@@ -7,6 +7,10 @@ This model produces the pooled / encoded output - a single value per input seque
 The code in this package is a re-packaging of the code shown in [this notebook](https://github.com/fwaris/BertTorchSharp/blob/master/saved_output.ipynb). 
 Please consult the notebook (and associated repo) for a text classification example.
 
+Also see BertFineTuneExample.fsx script file in the repo for the same example in a script file
+
+(updated to torchsharp 0.98.1)
+
 
 
 
